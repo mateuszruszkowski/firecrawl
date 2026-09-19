@@ -166,6 +166,10 @@ const configSchema = z.object({
   ),
   OPENAI_API_KEY: z.string().optional(),
   OPENAI_BASE_URL: z.string().optional(),
+  // Use the Chat Completions API instead of the Responses API for the openai
+  // provider (OpenAI-compatible servers that do not honor text.format on
+  // /v1/responses). Default: false.
+  OPENAI_FORCE_CHAT_COMPLETIONS: z.stringbool().optional(),
   OPENROUTER_API_KEY: z.string().optional(),
   XAI_API_KEY: z.string().optional(),
   LLAMAPARSE_API_KEY: z.string().optional(),

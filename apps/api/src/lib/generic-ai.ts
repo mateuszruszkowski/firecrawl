@@ -58,8 +58,14 @@ export function getModel(name: string, provider: Provider = defaultProvider) {
     name = "gemini-2.5-pro";
   }
   const modelName = config.MODEL_NAME || name;
-  // o3-mini returns empty text via the Responses API — force Chat Completions
-  if (provider === "openai" && modelName.startsWith("o3-mini")) {
+  // o3-mini returns empty text via the Responses API — force Chat Completions.
+  // OPENAI_FORCE_CHAT_COMPLETIONS does the same for OpenAI-compatible backends
+  // (llama.cpp, vLLM, LM Studio) that ignore text.format on /v1/responses and
+  // would otherwise return prose instead of JSON.
+  if (
+    provider === "openai" &&
+    (config.OPENAI_FORCE_CHAT_COMPLETIONS || modelName.startsWith("o3-mini"))
+  ) {
     return providerList.openai.chat(modelName);
   }
   return providerList[provider](modelName);

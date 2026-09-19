@@ -31,7 +31,10 @@ the services and configuration match the revision you checked out.
 - **Scraping: bundled Playwright with basic fetch fallback.** Connect and
   configure a separate engine such as Fire-engine only when you need it.
 - **AI-backed features: no model provider.** Connect OpenAI, an OpenAI-compatible
-  endpoint, or Ollama when a feature needs it.
+  endpoint, or Ollama when a feature needs it. If an OpenAI-compatible server
+  (llama.cpp, vLLM, LM Studio) returns prose instead of JSON for `/v1/extract`
+  or JSON mode, set `OPENAI_FORCE_CHAT_COMPLETIONS=true` to use the Chat
+  Completions API instead of the Responses API.
 - **Queue administration UI: off.** Enable it only with a strong
   `BULL_AUTH_KEY` and restricted network access.
 
